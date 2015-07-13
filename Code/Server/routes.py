@@ -22,7 +22,21 @@ def samples():
         samples = Sample.query.all()
         return render_template("sample.html", samples = samples)    
 
-@app.route('/sample/<int:id>')
+@app.route('/sample/<int:id>', methods=['GET','POST'])
 def sample(id):
     s = Sample.query.filter_by(id=id).first()
-    return str(s.events)
+    
+    if request.method == 'POST':
+        dose = request.form['dose']
+        temperature = request.form['temperature']
+        atmosType = request.form['atmosType']
+        e = Event(dose,temperature,atmosType,s)
+        db.session.add(e)
+        db.session.commit()
+        return 'done'
+    elif request.method == 'GET':
+        return render_template('events.html', sample=s)
+
+@app.route('/event/<int:id>')
+def event(id):
+    return 'Hello'
