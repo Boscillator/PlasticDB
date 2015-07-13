@@ -53,8 +53,8 @@ class Mesurement(db.Model):
     data = db.Column(db.LargeBinary)
     
     event_ID = db.Column(db.Integer, db.ForeignKey('event.id'))
-    event = db.relationship('Event', backref=db.backref('events',lazy='dynamic'))
+    event = db.relationship('Event', backref=db.backref('mesurements',lazy='dynamic'))
     
-    def __int__(self, data, event):
+    def __init__(self, data, event):
         self.data = data
         self.event = event
