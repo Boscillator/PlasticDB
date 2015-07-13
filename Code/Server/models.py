@@ -1,3 +1,7 @@
+"""
+SQL models
+"""
+
 from Server import db
 from datetime import datetime
 
