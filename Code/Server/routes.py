@@ -46,7 +46,7 @@ def event(id):
         m = Mesurement(data,e)
         db.session.add(m)
         db.session.commit()
-        return 'done'
+        return render_template('messurments.html', event = e)
     elif request.method == 'GET':
         return render_template('messurments.html', event = e)
     
