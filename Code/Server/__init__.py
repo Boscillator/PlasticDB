@@ -8,6 +8,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./database.db'
+app.secret_key = 'DEV'
 db = SQLAlchemy(app)
 
 import models

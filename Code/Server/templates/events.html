@@ -35,16 +35,19 @@
                     <!---Modal Form--->
                     <form method="post" action="/sample/{{sample.id}}">
                         <div class="form-group">
-                            <label for="dose">dose:</label>
+                            <label for="dose">Dose (Mrad):</label>
                             <input type="text" class="form-control" id="dose" name="dose">
                         </div>
                         <div class="form-group">
-                            <label for="temperature">temperature:</label>
+                            <label for="temperature">Temperature (&deg;C):</label>
                             <input type="text" class="form-control" id="temperature" name="temperature">
                         </div>
                         <div class="form-group">
-                            <label for="atmosType">atmosType:</label>
-                            <input type="text" class="form-control" id="atmosType" name="atmosType">
+                            <label for="atmosType">Atmosphere Type:</label>
+                            <select class="form-control" id="atmostType" name="atmosType">
+                                <option>Nitrogen</option>
+                                <option>Air</option>
+                            </select>
                         </div>
                         <input type="submit" class="btn btn-info" value="Create Sample">
                     </form>
