@@ -21,8 +21,11 @@ def samples():
         plasticType = request.form['plasticType']
         fiberType = request.form['fiberType']
         fiberDiamiter = request.form['fiberDiamiter']
+        primary_dopant_concentration = request.form['primary_dopant_concentration']
+        secondary_dopant_concentration = request.form['secondary_dopant_concentration']
+        tag = request.form['tag']
         
-        s = Sample(datetime.datetime.now(),plasticType,fiberType,fiberDiamiter) #Creates sample object
+        s = Sample(datetime.datetime.now(),plasticType,fiberType,fiberDiamiter,primary_dopant_concentration,secondary_dopant_concentration,tag) #Creates sample object
         
         db.session.add(s)   #addes sample to db
         db.session.commit()

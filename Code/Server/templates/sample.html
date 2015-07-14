@@ -7,16 +7,20 @@
     <table class="table table-striped table-bordered table-hover" >
         <thead>
             <tr>
-                <td>Time</td><td>Type</td><td>Fiber Type</td><td>Fiber Diamiter</td>
+                <td>Time</td><td>Type</td><td>Fiber Type</td><td>Fiber Diamiter</td><td>primary dopant concentration</td><td>secondary dopant concentration</td><td>Tag</td>
             </tr>
         </thead>
         <tbody data-link="row" class="rowlink">
             {% for sample in samples %}
                 <tr>
-                    <td><a href="/sample/{{sample.id}}">{{sample.time}}</a></td>
+                    <td><a href="/sample/{{sample.id}}">{{sample.time.month}}/{{sample.time.day}}/{{sample.time.year}} {{"%02d" % sample.time.hour}}:{{"%02d" % sample.time.minute}}</a></td>
                     <td>{{sample.plasticType}}</td>
                     <td>{{sample.fiberType}}</td>
                     <td>{{sample.fiberDiamiter}}</td>
+                    <td>{{sample.primary_dopant_concentration}}</td>
+                    <td>{{sample.secondary_dopant_concentration}}</td>
+                    <td>{{sample.tag}}</td>
+                    
                 </tr>
             {% endfor %}
         </tbody>
@@ -45,6 +49,18 @@
                         <div class="form-group">
                             <label for="fiberDiamiter">Fiber Diameter (mm):</label>
                             <input type="text" class="form-control" id="fiberDiamiter" name="fiberDiamiter">
+                        </div>
+                        <div class="form-group">
+                            <label for="primary_dopant_concentration">primary dopant concentration:</label>
+                            <input type="text" class="form-control" id="primary_dopant_concentration" name="primary_dopant_concentration">
+                        </div>
+                        <div class="form-group">
+                            <label for="secondary_dopant_concentration">secondary dopant concentration</label>
+                            <input type="text" class="form-control" id="secondary_dopant_concentration" name="secondary_dopant_concentration">
+                        </div>
+                        <div class="form-group">
+                            <label for="tag">tag (id-face)</label>
+                            <input type="text" class="form-control" id="tag" name="tag">
                         </div>
                         <input type="submit" class="btn btn-info" value="Create Sample">
                     </form>

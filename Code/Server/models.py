@@ -14,12 +14,18 @@ class Sample(db.Model):
     plasticType = db.Column(db.String(10))
     fiberType = db.Column(db.String(80))
     fiberDiamiter = db.Column(db.String(80))
+    primary_dopant_concentration = db.Column(db.String(80))
+    secondary_dopant_concentration = db.Column(db.String(80))
+    tag = db.Column(db.String(80))
     
-    def __init__(self, time, plasticType, fiberType, fiberDiamiter):
+    def __init__(self, time, plasticType, fiberType, fiberDiamiter, primary_dopant_concentration, secondary_dopant_concentration, tag):
         self.time = time
         self.plasticType = plasticType
         self.fiberType = fiberType
         self.fiberDiamiter = fiberDiamiter
+        self.primary_dopant_concentration = primary_dopant_concentration
+        self.secondary_dopant_concentration = secondary_dopant_concentration
+        self.tag = tag
     
 
 
