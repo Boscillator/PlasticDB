@@ -30,7 +30,10 @@ These are the verius templates for displying data.
 ##Adding more field
 If you need to add more files folow these instructions
 1. Update models. You will need to add more columns in the space above the __init__ function. You will also need to change the __init__ function's peramitors. *Make sure to update this everywhere the function is called.* This will mostly be in the routes.py file
+
 2. Update the form. Add more feilds to the creation form. A howto of bootstrap forms is avalible at http://www.w3schools.com/bootstrap/bootstrap_forms_inputs.asp set the name peramiter to the name of the column
 3. Update the routes. In the if statement that sees if request.method == 'POST' there is a sections that gets variables and sets them equal to form['name']. Add more of these.
+
 4. Deleat the database.db file (THIS WILL DEALTE ALL WORK BACK IT UP!!!!!!)
+
 5. Run makeDb.py
