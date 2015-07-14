@@ -12,6 +12,7 @@
             </tr>
         </thead>
         <tbody data-link="row" class="rowlink">
+            <!---Loop through events--->
             {% for event in sample.events.all() %}
                 <tr>
                     <td><a href="/event/{{event.id}}">{{event.dose}}</a></td>
