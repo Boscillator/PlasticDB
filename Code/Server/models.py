@@ -37,14 +37,16 @@ class Event(db.Model):
     """
     id = db.Column(db.Integer, primary_key=True)
     dose = db.Column(db.String(10))
+    doserate = db.Column(db.String(10))
     temperature = db.Column(db.String(10))
     atmosType = db.Column(db.String(10))
     
     sample_ID = db.Column(db.Integer, db.ForeignKey('sample.id'))
     sample = db.relationship('Sample', backref=db.backref('events', lazy='dynamic'))
     
-    def __init__(self,dose, temperature, atmosType, sample):
+    def __init__(self,dose,doserate,temperature, atmosType, sample):
         self.dose = dose
+        self.doserate = doserate
         self.temperature = temperature
         self.atmosType = atmosType
         self.sample = sample
