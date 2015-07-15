@@ -37,3 +37,20 @@ If you need to add more files folow these instructions
 4. Deleat the database.db file (THIS WILL DEALTE ALL WORK BACK IT UP!!!!!!)
 
 5. Run makeDb.py
+
+##Pushing to server
+1. Commit and push changes
+2. SSH to server with account lhc
+3. cd to PlasticDB
+4. run ./stop.sh
+5. run git pull
+6. run mysql -u root -p
+7. enter password
+8. run DROP DATABASE PlasticDB;
+9. run CREATE DATABASE PlasticDB;
+10. run quit;
+11. You should now be back in bash
+12. cd to code
+13. run python makeDB.py
+14. cd ..
+15. run ./start.sh
