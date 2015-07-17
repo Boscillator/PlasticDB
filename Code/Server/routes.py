@@ -70,8 +70,8 @@ def sample(id):
 def deleteSample(id):
     s = Sample.query.filter_by(id=id).first()
     
-    for event in s.events:
-        for messurement in event.mesurements:
+    for event in s.events.all():
+        for messurement in event.mesurements.all():
             db.session.delete(messurement)
         db.session.delete(event)
     db.session.delete(s)
@@ -106,7 +106,7 @@ def event(id):
 @app.route('/event/<int:id>/delete')
 def deleteEvent(id):
     e = Event.query.filter_by(id=id).first()
-    for messurement in e.messurements:
+    for messurement in e.mesurements.all():
         db.session.delete(messurement)
     db.session.delete(e)
     db.session.commit()
@@ -123,4 +123,4 @@ def deleteMessurement(id):
     m = Mesurement.query.filter_by(id=id).first()
     db.session.delete(m)
     db.session.commit()
-    return redirect('')
+    return redirect('/')

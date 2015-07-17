@@ -8,7 +8,7 @@
     <table class="table table-striped table-bordered table-hover" >
         <thead>
             <tr>
-                <td>Dose</td><td>Doserate</td><td>Temperature</td><td>Atmosphere Type</td>
+                <td>Dose</td><td>Doserate</td><td>Temperature</td><td>Atmosphere Type</td><td>Delete</td>
             </tr>
         </thead>
         <tbody data-link="row" class="rowlink">
@@ -19,6 +19,7 @@
                     <td>{{event.doserate}}</td>
                     <td>{{event.temperature}}</td>
                     <td>{{event.atmosType}}</td>
+                    <td class="rowlink-skip"><a href="/event/{{event.id}}/delete">Delete</a></td>
                 </tr>
             {% endfor %}
         </tbody>
