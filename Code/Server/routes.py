@@ -51,10 +51,11 @@ def sample(id):
     if request.method == 'POST':
         #gets values from form
         dose = request.form['dose']
+        doserate = request.form['doserate']
         temperature = request.form['temperature']
         atmosType = request.form['atmosType']
         
-        e = Event(dose,temperature,atmosType,s) #create event object
+        e = Event(dose,doserate,temperature,atmosType,s) #create event object
         
         #add and commit to db
         db.session.add(e)

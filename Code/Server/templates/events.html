@@ -8,7 +8,7 @@
     <table class="table table-striped table-bordered table-hover" >
         <thead>
             <tr>
-                <td>Dose</td><td>Temperature</td><td>Atmosphere Type</td>
+                <td>Dose</td><td>Doserate</td><td>Temperature</td><td>Atmosphere Type</td>
             </tr>
         </thead>
         <tbody data-link="row" class="rowlink">
@@ -16,6 +16,7 @@
             {% for event in sample.events.all() %}
                 <tr>
                     <td><a href="/event/{{event.id}}">{{event.dose}}</a></td>
+                    <td>{{event.doserate}}</td>
                     <td>{{event.temperature}}</td>
                     <td>{{event.atmosType}}</td>
                 </tr>
@@ -39,6 +40,10 @@
                             <label for="dose">Dose (Mrad):</label>
                             <input type="text" class="form-control" id="dose" name="dose">
                         </div>
+                        <div class="form-group">
+                            <label for="doserate">Doserate (Mrad/h):</label>
+                            <input type="text" class="form-control" id="doserate" name="doserate">
+                                </div>
                         <div class="form-group">
                             <label for="temperature">Temperature (&deg;C):</label>
                             <input type="text" class="form-control" id="temperature" name="temperature">
