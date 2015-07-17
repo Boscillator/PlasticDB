@@ -60,9 +60,24 @@ def sample(id):
         db.session.add(e)
         db.session.commit()
         
+        
         return redirect(url_for('event',id=e.id))   #redirect to new events page
     elif request.method == 'GET':
         return render_template('events.html', sample=s)
+    
+@app.route('/sample/<int:id>/delete')
+def deleteSample(id):
+    s = Sample.query.filter_by(id=id).first()
+    
+    for event in s.events:
+        for messurement in event.mesurements:
+            db.session.delete(messurement)
+        db.session.delete(event)
+    db.session.delete(s)
+    
+    db.session.commit()
+    
+    return redirect('/')
 
 @app.route('/event/<int:id>',methods=['GET','POST'])
 def event(id):
@@ -86,9 +101,25 @@ def event(id):
         return render_template('messurments.html', event = e)   #Return this template, no reson to redirect
     elif request.method == 'GET':
         return render_template('messurments.html', event = e)   #Return template
-    
+
+@app.route('/event/<int:id>/delete')
+def deleteEvent(id):
+    e = Event.query.filter_by(id=id).first()
+    for messurement in e.messurements:
+        db.session.delete(messurement)
+    db.session.delete(e)
+    db.session.commit()
+    return redirect('/')
+
+
 @app.route('/mesurement/<int:id>')
 def messurement(id):
     m = Mesurement.query.filter_by(id=id).first()   #get mesurement by id
     return Response(m.data, mimetype='text/plain')  #Retrun plain text file with mesurments data
-    
+
+@app.route('/messurment/<int:id>/delete')
+def deleteMessurement(id):
+    m = Mesurement.query.filter_by(id=id).first()
+    db.session.delete(m)
+    db.session.commit()
+    return redirect('')
