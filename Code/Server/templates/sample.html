@@ -14,7 +14,6 @@
             {% for sample in samples %}
                 <tr>
                     <td><a href="/sample/{{sample.id}}"></a></td>
-                    <td class="rowlink-skip"><a href="/sample/{{sample.id}}/delete">Delete</a></td>
                     <td>{{sample.Material}}</td>
                     <td>{{sample.Doping_Rate}}</td>
                     <td>{{sample.Code_ID}}</td>
@@ -29,6 +28,7 @@
                     <td>{{sample.Irradiation_Date_MMDDYYYY}}</td>
                     <td>{{sample.Notes1}}</td>
                     <td>{{sample.Notes2}}</td>
+                    <td class="rowlink-skip"><a href="/sample/{{sample.id}}/delete">Delete</a></td>
                 </tr>
             {% endfor %}
         </tbody>
