@@ -18,14 +18,23 @@ def samples():
     
     if request.method == 'POST':
         #Gets values from form
-        plasticType = request.form['plasticType']
-        fiberType = request.form['fiberType']
-        fiberDiamiter = request.form['fiberDiamiter']
-        primary_dopant_concentration = request.form['primary_dopant_concentration']
-        secondary_dopant_concentration = request.form['secondary_dopant_concentration']
-        tag = request.form['tag']
+        Material = request.form['Material']
+        Doping_Rate = request.form['Doping_Rate']
+        Code_ID = request.form['Code_ID']
+        Size_cm = request.form['Size_cm']
+        Dose_Mrad = request.form['Dose_Mrad']
+        Dose_Rate_Mradhr = request.form['Dose_Rate_Mradhr']
+        Radiation_Source = request.form['Radiation_Source']
+        Atmosphere = request.form['Atmosphere']
+        Color = request.form['Color']
+        Wire_Attached = request.form['Wire_Attached']
+        Location = request.form['Location']
+        Irradiation_Date_MMDDYYYY = request.form['Irradiation_Date_MMDDYYYY']
+        Notes1 = request.form['Notes1']
+        Notes2 = request.form['Notes2']
         
-        s = Sample(datetime.datetime.now(),plasticType,fiberType,fiberDiamiter,primary_dopant_concentration,secondary_dopant_concentration,tag) #Creates sample object
+        
+        s = Sample(Material,Doping_Rate,Code_ID,Size_cm,Dose_Mrad,Dose_Rate_Mradhr,Radiation_Source,Atmosphere,Color,Wire_Attached,Location,Irradiation_Date_MMDDYYYY,Notes1,Notes2) #Creates sample object
         
         db.session.add(s)   #addes sample to db
         db.session.commit()
@@ -50,12 +59,16 @@ def sample(id):
     
     if request.method == 'POST':
         #gets values from form
-        dose = request.form['dose']
-        doserate = request.form['doserate']
-        temperature = request.form['temperature']
-        atmosType = request.form['atmosType']
+        time = request.form['time']
+        sample_number = request.form['sample_number']
+        sample_face = request.form['sample_face']
+        sample_angle = request.form['sample_angle']
+        Excitation_wavelength_nm = request.form['Excitation_wavelength_nm']
+        Excitation_Slit_nm = request.form['Excitation_Slit_nm']
+        Increment_nm = request.form['Increment_nm']
+        Emission_Slit_nm = request.form['Emission_Slit_nm']
         
-        e = Event(dose,doserate,temperature,atmosType,s) #create event object
+        e = Event(datetime.datetime.now(),sample_number,sample_face,sample_angle,Excitation_wavelength_nm,Excitation_Slit_nm,Increment_nm, Emission_Slit_nm, s) #create event object
         
         #add and commit to db
         db.session.add(e)

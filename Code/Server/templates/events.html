@@ -8,19 +8,20 @@
     <table class="table table-striped table-bordered table-hover" >
         <thead>
             <tr>
-                <td>Dose</td><td>Doserate</td><td>Temperature</td><td>Atmosphere Type</td><td>Delete</td>
+                <td>time</td><td>sample number</td><td>sample face</td><td>Excitation wavelength nm</td><td>Slit mm</td>
             </tr>
         </thead>
         <tbody data-link="row" class="rowlink">
             <!---Loop through events--->
             {% for event in sample.events.all() %}
-                <tr>
-                    <td><a href="/event/{{event.id}}">{{event.dose}}</a></td>
-                    <td>{{event.doserate}}</td>
-                    <td>{{event.temperature}}</td>
-                    <td>{{event.atmosType}}</td>
-                    <td class="rowlink-skip"><a href="/event/{{event.id}}/delete">Delete</a></td>
-                </tr>
+            <tr>
+                <td><a href="/event/{{event.id}}">{{event.time.month}}/{{event.time.day}}/{{event.time.year}} {{"%02d" % event.time.hour}}:{{"%02d" % event.time.minute}}</a></td>
+                <td>{{event.sample_number}}</td>
+                <td>{{event.sample_face}}</td>
+                <td>{{event.Excitation_wavelength_nm}}</td>
+                <td>{{event.Slit_mm}}</td>
+                <td class="rowlink-skip"><a href="/event/{{event.id}}/delete">Delete</a></td>
+            </tr>
             {% endfor %}
         </tbody>
     </table>
@@ -38,23 +39,36 @@
                     <!---Modal Form--->
                     <form method="post" action="/sample/{{sample.id}}">
                         <div class="form-group">
-                            <label for="dose">Dose (Mrad):</label>
-                            <input type="text" class="form-control" id="dose" name="dose">
+                            <label for="time">Time:</label>
+                            <input type="text" class="form-control" id="time" name="time">
                         </div>
                         <div class="form-group">
-                            <label for="doserate">Doserate (Mrad/h):</label>
-                            <input type="text" class="form-control" id="doserate" name="doserate">
-                                </div>
-                        <div class="form-group">
-                            <label for="temperature">Temperature (&deg;C):</label>
-                            <input type="text" class="form-control" id="temperature" name="temperature">
+                            <label for="sample_number">Sample Number:</label>
+                            <input type="text" class="form-control" id="sample_number" name="sample_number">
                         </div>
                         <div class="form-group">
-                            <label for="atmosType">Atmosphere Type:</label>
-                            <select class="form-control" id="atmostType" name="atmosType">
-                                <option>Air</option>
-                                <option>Nitrogen</option>
-                            </select>
+                            <label for="sample_face">Sample face:</label>
+                            <input type="text" class="form-control" id="sample_face" name="sample_face">
+                        </div>
+                        <div class="form-group">
+                            <label for="sample_angle">Sample angle (degree):</label>
+                            <input type="text" class="form-control" id="sample_angle" name="sample_angle">
+                        </div>
+                        <div class="form-group">
+                            <label for="Excitation_wavelength_nm">Excitation Wavelength (nm):</label>
+                            <input type="text" class="form-control" id="Excitation_wavelength_nm" name="Excitation_wavelength_nm">
+                        </div>
+                        <div class="form-group">
+                            <label for="Excitation_Slit_nm">Excitation Slit (nm):</label>
+                            <input type="text" class="form-control" id="Excitation_Slit_nm" name="Excitation_Slit_nm">
+                        </div>
+                        <div class="form-group">
+                            <label for="Increment_nm">Increment (nm):</label>
+                            <input type="text" class="form-control" id="Increment_nm" name="Increment_nm">
+                        </div>
+                        <div class="form-group">
+                            <label for="Emission_Slit_nm">Emission Slit (nm):</label>
+                            <input type="text" class="form-control" id="Emission_Slit_nm" name="Emission_Slit_nm">
                         </div>
                         <input type="submit" class="btn btn-info" value="Create Sample">
                     </form>
