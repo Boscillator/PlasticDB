@@ -8,14 +8,15 @@
     <table class="table table-striped table-bordered table-hover" >
         <thead>
             <tr>
-                <td>Data</td><td>Delete</td>
+                <td>Data</td><td>Notes</td><td>Delete</td>
             </tr>
         </thead>
         <tbody data-link="row" class="rowlink">
             {% for mesurment in event.mesurements.all() %}
                 <tr>
                     <td><a href="/mesurement/{{mesurment.id}}"><span class="glyphicon glyphicon-download"></span>Data</a></td>
-                    <td class="rowlink-skip"><a href="/messurement/{{mesurment.id}}/delete">Delete</a></td>
+                    <td>{{mesurment.Notes}}</td>
+                    <td class="rowlink-skip"><a href="/mesurements/{{mesurment.id}}/delete">Delete</a></td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -41,7 +42,11 @@
                                 <span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span>
                                 <input type="file" name=file /></span>
                                 <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Notes">Notes:</label>
+                            <input type="text" class="form-control" id="Notes" name="Notes">
+                        </div>
                         <input type="submit" class="btn btn-info" value="Create Messurment">
                     </form>
                 </div>

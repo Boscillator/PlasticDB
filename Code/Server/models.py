@@ -10,6 +10,7 @@ class Sample(db.Model):
     Model used for plastic sample
     """
     id = db.Column(db.Integer, primary_key=True)
+    Row = db.Column(db.Integer)
     Material = db.Column(db.String(20))
     Doping_Rate = db.Column(db.String(20))
     Code_ID = db.Column(db.String(20))
@@ -25,7 +26,8 @@ class Sample(db.Model):
     Notes1 = db.Column(db.String(500))
     Notes2 = db.Column(db.String(500))
     
-    def __init__(self, Material, Doping_Rate, Code_ID, Size_cm, Dose_Mrad, Dose_Rate_Mradhr, Radiation_Source, Atmosphere, Color, Wire_Attached, Location, Irradiation_Date_MMDDYYYY, Notes1, Notes2):
+    def __init__(self,Row,Material, Doping_Rate, Code_ID, Size_cm, Dose_Mrad, Dose_Rate_Mradhr, Radiation_Source, Atmosphere, Color, Wire_Attached, Location, Irradiation_Date_MMDDYYYY, Notes1, Notes2):
+        self.Row = Row
         self.Material = Material
         self.Doping_Rate = Doping_Rate
         self.Code_ID = Code_ID
@@ -82,10 +84,12 @@ class Mesurement(db.Model):
     """
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.LargeBinary)
+    Notes = db.Column(db.String(500))
     
     event_ID = db.Column(db.Integer, db.ForeignKey('event.id'))
     event = db.relationship('Event', backref=db.backref('mesurements',lazy='dynamic'))
     
-    def __init__(self, data, event):
+    def __init__(self, data, Notes, event):
         self.data = data
+        self.Notes = Notes
         self.event = event

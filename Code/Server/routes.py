@@ -18,6 +18,7 @@ def samples():
     
     if request.method == 'POST':
         #Gets values from form
+        Row = request.form['Row']
         Material = request.form['Material']
         Doping_Rate = request.form['Doping_Rate']
         Code_ID = request.form['Code_ID']
@@ -34,7 +35,7 @@ def samples():
         Notes2 = request.form['Notes2']
         
         
-        s = Sample(Material,Doping_Rate,Code_ID,Size_cm,Dose_Mrad,Dose_Rate_Mradhr,Radiation_Source,Atmosphere,Color,Wire_Attached,Location,Irradiation_Date_MMDDYYYY,Notes1,Notes2) #Creates sample object
+        s = Sample(Row,Material,Doping_Rate,Code_ID,Size_cm,Dose_Mrad,Dose_Rate_Mradhr,Radiation_Source,Atmosphere,Color,Wire_Attached,Location,Irradiation_Date_MMDDYYYY,Notes1,Notes2) #Creates sample object
         
         db.session.add(s)   #addes sample to db
         db.session.commit()
@@ -107,7 +108,8 @@ def event(id):
     if request.method == 'POST':
         f = request.files['file']   #get files as filetype object from database
         data = f.read()
-        m = Mesurement(data,e)  #create messurement
+        Notes = request.form['Notes']
+        m = Mesurement(data,Notes,e)  #create messurement
         
         #add to db
         db.session.add(m)
