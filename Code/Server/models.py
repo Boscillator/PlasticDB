@@ -26,7 +26,7 @@ class Sample(db.Model):
     Notes1 = db.Column(db.String(500))
     Notes2 = db.Column(db.String(500))
     
-    def __init__(self,Row,Material, Doping_Rate, Code_ID, Size_cm, Dose_Mrad, Dose_Rate_Mradhr, Radiation_Source, Atmosphere, Color, Wire_Attached, Location, Irradiation_Date_MMDDYYYY, Notes1, Notes2):
+    def __init__(self, Row, Material, Doping_Rate, Code_ID, Size_cm, Dose_Mrad, Dose_Rate_Mradhr, Radiation_Source, Atmosphere, Color, Wire_Attached, Location, Irradiation_Date_MMDDYYYY, Notes1, Notes2):
         self.Row = Row
         self.Material = Material
         self.Doping_Rate = Doping_Rate
