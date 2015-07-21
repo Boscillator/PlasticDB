@@ -49,6 +49,7 @@ class Event(db.Model):
     """
     id = db.Column(db.Integer, primary_key=True)
     time = db.Column(db.DateTime)
+    Measurement_type = db.Column(db.String(30))
     sample_number = db.Column(db.Integer)
     sample_face = db.Column(db.String(10))
     sample_angle = db.Column(db.String(10))
@@ -61,8 +62,9 @@ class Event(db.Model):
     sample_ID = db.Column(db.Integer, db.ForeignKey('sample.id'))
     sample = db.relationship('Sample', backref=db.backref('events', lazy='dynamic'))
     
-    def __init__(self,time,sample_number,sample_face,sample_angle,Excitation_wavelength_nm,Excitation_Slit_nm,Increment_nm,Emission_Slit_nm, sample):
+    def __init__(self,time,Measurement_type,sample_number,sample_face,sample_angle,Excitation_wavelength_nm,Excitation_Slit_nm,Increment_nm,Emission_Slit_nm, sample):
         self.time = time
+        self.Measurement_type = Measurement_type
         self.sample_number = sample_number
         self.sample_face = sample_face
         self.sample_angle = sample_angle
