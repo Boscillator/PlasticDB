@@ -71,7 +71,7 @@ class Event(db.Model):
         self.sample_face = sample_face
         self.sample_angle = sample_angle
         self.Excitation_wavelength_nm = Excitation_wavelength_nm
-        self.Excitation_Slit_nm = self.Excitation_Slit_nm
+        self.Excitation_Slit_nm = Excitation_Slit_nm
         self.Increment_nm = Increment_nm
         self.Emission_Slit_nm = Emission_Slit_nm
         self.sample = sample

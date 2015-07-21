@@ -134,7 +134,7 @@ def messurement(id):
     m = Mesurement.query.filter_by(id=id).first()   #get mesurement by id
     return Response(m.data, mimetype='text/plain')  #Retrun plain text file with mesurments data
 
-@app.route('/messurment/<int:id>/delete')
+@app.route('/mesurement/<int:id>/delete')
 def deleteMessurement(id):
     m = Mesurement.query.filter_by(id=id).first()
     db.session.delete(m)
