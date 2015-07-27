@@ -16,8 +16,8 @@
             {% for event in sample.events.all() %}
             <tr>
                 <td><a href="/event/{{event.id}}">{{event.time.month}}/{{event.time.day}}/{{event.time.year}} {{"%02d" % event.time.hour}}:{{"%02d" % event.time.minute}}</a></td>
-                <td>{{event.Measurement_type}}</td>
                 <td>{{event.History_time}}</td>
+                <td>{{event.Measurement_type}}</td>
                 <td>{{event.sample_number}}</td>
                 <td>{{event.sample_face}}</td>
                 <td>{{event.E_sample_angle}}</td>
