@@ -8,7 +8,7 @@
     <table class="table table-striped table-bordered table-hover" >
         <thead>
             <tr>
-                <td>time</td><td>Measurement Type</td><td>sample number</td><td>sample face</td><td>sample angle</td><td>Excitation wavelength (nm)</td><td>Excitation Slit (nm)</td><td>Increment (nm)</td><td>Emission Slit (nm)</td><td>Delete</td>
+                <td>time</td><td>Measurement Type</td><td>sample number</td><td>sample face</td><td>(E) sample angle</td><td>(E) Excitation wavelength (nm)</td><td>(E)Excitation Slit (nm)</td><td>(E) Increment (nm)</td><td>(E) Emission Slit (nm)</td><td>(A) Baseline Reference</td><td>(A) Scan Range (nm)</td><td>(A) Spectral Bandwidth (nm)</td><td>(A) Increment (nm)</td><td>Delete</td>
             </tr>
         </thead>
         <tbody data-link="row" class="rowlink">
@@ -19,11 +19,15 @@
                 <td>{{event.Measurement_type}}</td>
                 <td>{{event.sample_number}}</td>
                 <td>{{event.sample_face}}</td>
-                <td>{{event.sample_angle}}</td>
-                <td>{{event.Excitation_wavelength_nm}}</td>
-                <td>{{event.Excitation_Slit_nm}}</td>
-                <td>{{event.Increment_nm}}</td>
-                <td>{{event.Emission_Slit_nm}}</td>
+                <td>{{event.E_sample_angle}}</td>
+                <td>{{event.E_Excitation_wavelength_nm}}</td>
+                <td>{{event.E_Excitation_Slit_nm}}</td>
+                <td>{{event.E_Increment_nm}}</td>
+                <td>{{event.E_Emission_Slit_nm}}</td>
+                <td>{{event.A_Baseline_reference}}</td>
+                <td>{{event.A_Scan_range_nm}}</td>
+                <td>{{event.A_Spectral_bandwidth_nm}}</td>
+                <td>{{event.A_Increment_nm}}</td>
                 <td class="rowlink-skip"><a href="/event/{{event.id}}/delete">Delete</a></td>
             </tr>
             {% endfor %}
@@ -67,8 +71,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="sample_angle">Sample angle (degree):</label>
-                            <select class="form-control" id="sample_angle" name="sample_angle">
+                            <label for="E_sample_angle">(E) Sample angle (degree):</label>
+                            <select class="form-control" id="E_sample_angle" name="E_sample_angle">
                                 <option>0</option>
                                 <option>30</option>
                                 <option>45</option>
@@ -76,20 +80,36 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="Excitation_wavelength_nm">Excitation Wavelength (nm):</label>
-                            <input type="text" class="form-control" id="Excitation_wavelength_nm" name="Excitation_wavelength_nm">
+                            <label for="E_Excitation_wavelength_nm">(E) Excitation Wavelength (nm):</label>
+                            <input type="text" class="form-control" id="E_Excitation_wavelength_nm" name="E_Excitation_wavelength_nm">
                         </div>
                         <div class="form-group">
-                            <label for="Excitation_Slit_nm">Excitation Slit (nm):</label>
-                            <input type="text" class="form-control" id="Excitation_Slit_nm" name="Excitation_Slit_nm">
+                            <label for="E_Excitation_Slit_nm">(E) Excitation Slit (nm):</label>
+                            <input type="text" class="form-control" id="E_Excitation_Slit_nm" name="E_Excitation_Slit_nm">
                         </div>
                         <div class="form-group">
-                            <label for="Increment_nm">Increment (nm):</label>
-                            <input type="text" class="form-control" id="Increment_nm" name="Increment_nm">
+                            <label for="E_Increment_nm">(E) Increment (nm):</label>
+                            <input type="text" class="form-control" id="E_Increment_nm" name="E_Increment_nm">
                         </div>
                         <div class="form-group">
-                            <label for="Emission_Slit_nm">Emission Slit (nm):</label>
-                            <input type="text" class="form-control" id="Emission_Slit_nm" name="Emission_Slit_nm">
+                            <label for="E_Emission_Slit_nm">(E) Emission Slit (nm):</label>
+                            <input type="text" class="form-control" id="E_Emission_Slit_nm" name="E_Emission_Slit_nm">
+                        </div>
+                        <div class="form-group">
+                            <label for="A_Baseline_reference">(A) Baseline Reference:</label>
+                            <input type="text" class="form-control" id="A_Baseline_reference" name="A_Baseline_reference">
+                        </div>
+                        <div class="form-group">
+                            <label for="A_Scan_range_nm">(A) Scan Range (nm):</label>
+                            <input type="text" class="form-control" id="A_Scan_range_nm" name="A_Scan_range_nm">
+                        </div>
+                        <div class="form-group">
+                            <label for="A_Spectral_bandwidth_nm">(A) Spectral Bandwidth (nm):</label>
+                            <input type="text" class="form-control" id="A_Spectral_bandwidth_nm" name="A_Spectral_bandwidth_nm">
+                        </div>
+                        <div class="form-group">
+                            <label for="A_Increment_nm">(A) Increment (nm):</label>
+                            <input type="text" class="form-control" id="A_Increment_nm" name="A_Increment_nm">
                         </div>
                         <input type="submit" class="btn btn-info" value="Create Sample">
                     </form>

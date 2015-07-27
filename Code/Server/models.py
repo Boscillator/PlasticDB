@@ -54,26 +54,34 @@ class Event(db.Model):
     Measurement_type = db.Column(db.String(30))
     sample_number = db.Column(db.Integer)
     sample_face = db.Column(db.String(10))
-    sample_angle = db.Column(db.String(10))
-    Excitation_wavelength_nm = db.Column(db.String(20))
-    Excitation_Slit_nm = db.Column(db.String(20))
-    Increment_nm = db.Column(db.String(20))
-    Emission_Slit_nm = db.Column(db.String(20))
+    E_sample_angle = db.Column(db.String(10))
+    E_Excitation_wavelength_nm = db.Column(db.String(20))
+    E_Excitation_Slit_nm = db.Column(db.String(20))
+    E_Increment_nm = db.Column(db.String(20))
+    E_Emission_Slit_nm = db.Column(db.String(20))
+    A_Baseline_reference = db.Column(db.String(30))
+    A_Scan_range_nm = db.Column(db.String(50))
+    A_Spectral_bandwidth_nm = db.Column(db.String(10))
+    A_Increment_nm = db.Column(db.String(10))
     
     
     sample_ID = db.Column(db.Integer, db.ForeignKey('sample.id'))
     sample = db.relationship('Sample', backref=db.backref('events', lazy='dynamic'))
     
-    def __init__(self,time,Measurement_type,sample_number,sample_face,sample_angle,Excitation_wavelength_nm,Excitation_Slit_nm,Increment_nm,Emission_Slit_nm, sample):
+    def __init__(self,time,Measurement_type,sample_number,sample_face,E_sample_angle,E_Excitation_wavelength_nm,E_Excitation_Slit_nm,E_Increment_nm,E_Emission_Slit_nm,A_Baseline_reference,A_Scan_range_nm,A_Spectral_bandwidth_nm,A_Increment_nm,sample):
         self.time = time
         self.Measurement_type = Measurement_type
         self.sample_number = sample_number
         self.sample_face = sample_face
-        self.sample_angle = sample_angle
-        self.Excitation_wavelength_nm = Excitation_wavelength_nm
-        self.Excitation_Slit_nm = Excitation_Slit_nm
-        self.Increment_nm = Increment_nm
-        self.Emission_Slit_nm = Emission_Slit_nm
+        self.E_sample_angle = E_sample_angle
+        self.E_Excitation_wavelength_nm = E_Excitation_wavelength_nm
+        self.E_Excitation_Slit_nm = E_Excitation_Slit_nm
+        self.E_Increment_nm = E_Increment_nm
+        self.E_Emission_Slit_nm = E_Emission_Slit_nm
+        self.A_Baseline_reference = A_Baseline_reference
+        self.A_Scan_range_nm = A_Scan_range_nm
+        self.A_Spectral_bandwidth_nm = A_Spectral_bandwidth_nm
+        self.A_Increment_nm = A_Increment_nm
         self.sample = sample
     
 class Mesurement(db.Model):

@@ -64,13 +64,17 @@ def sample(id):
         Measurement_type = request.form['Measurement_type']
         sample_number = request.form['sample_number']
         sample_face = request.form['sample_face']
-        sample_angle = request.form['sample_angle']
-        Excitation_wavelength_nm = request.form['Excitation_wavelength_nm']
-        Excitation_Slit_nm = request.form['Excitation_Slit_nm']
-        Increment_nm = request.form['Increment_nm']
-        Emission_Slit_nm = request.form['Emission_Slit_nm']
+        E_sample_angle = request.form['E_sample_angle']
+        E_Excitation_wavelength_nm = request.form['E_Excitation_wavelength_nm']
+        E_Excitation_Slit_nm = request.form['E_Excitation_Slit_nm']
+        E_Increment_nm = request.form['E_Increment_nm']
+        E_Emission_Slit_nm = request.form['E_Emission_Slit_nm']
+        A_Baseline_reference = request.form['A_Baseline_reference']
+        A_Scan_range_nm = request.form['A_Scan_range_nm']
+        A_Spectral_bandwidth_nm = request.form['A_Spectral_bandwidth_nm']
+        A_Increment_nm = request.form['A_Increment_nm']
         
-        e = Event(datetime.datetime.now(),Measurement_type,sample_number,sample_face,sample_angle,Excitation_wavelength_nm,Excitation_Slit_nm,Increment_nm, Emission_Slit_nm, s) #create event object
+        e = Event(datetime.datetime.now(),Measurement_type,sample_number,sample_face,E_sample_angle,E_Excitation_wavelength_nm,E_Excitation_Slit_nm,E_Increment_nm, E_Emission_Slit_nm,A_Baseline_reference,A_Scan_range_nm,A_Spectral_bandwidth_nm,A_Increment_nm, s) #create event object
         
         #add and commit to db
         db.session.add(e)
