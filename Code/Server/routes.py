@@ -61,6 +61,7 @@ def sample(id):
     if request.method == 'POST':
         #gets values from form
         time = request.form['time']
+        History_time = request.form['History_time']
         Measurement_type = request.form['Measurement_type']
         sample_number = request.form['sample_number']
         sample_face = request.form['sample_face']
@@ -74,7 +75,7 @@ def sample(id):
         A_Spectral_bandwidth_nm = request.form['A_Spectral_bandwidth_nm']
         A_Increment_nm = request.form['A_Increment_nm']
         
-        e = Event(datetime.datetime.now(),Measurement_type,sample_number,sample_face,E_sample_angle,E_Excitation_wavelength_nm,E_Excitation_Slit_nm,E_Increment_nm, E_Emission_Slit_nm,A_Baseline_reference,A_Scan_range_nm,A_Spectral_bandwidth_nm,A_Increment_nm, s) #create event object
+        e = Event(datetime.datetime.now(),History_time , Measurement_type,sample_number,sample_face,E_sample_angle,E_Excitation_wavelength_nm,E_Excitation_Slit_nm,E_Increment_nm, E_Emission_Slit_nm,A_Baseline_reference,A_Scan_range_nm,A_Spectral_bandwidth_nm,A_Increment_nm, s) #create event object
         
         #add and commit to db
         db.session.add(e)
