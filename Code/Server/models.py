@@ -21,12 +21,10 @@ class Sample(db.Model):
     Atmosphere = db.Column(db.String(80))
     Color = db.Column(db.String(80))
     Wire_Attached = db.Column(db.String(80))
-    Location = db.Column(db.String(20))
     Irradiation_Date_MMDDYYYY = db.Column(db.String(30))
-    Notes1 = db.Column(db.String(500))
-    Notes2 = db.Column(db.String(500))
+    Current_Location = db.Column(db.String(20))
     
-    def __init__(self, Row, Material, Doping_Rate, Code_ID, Size_cm, Dose_Mrad, Dose_Rate_Mradhr, Radiation_Source, Atmosphere, Color, Wire_Attached, Location, Irradiation_Date_MMDDYYYY, Notes1, Notes2):
+    def __init__(self, Row, Material, Doping_Rate, Code_ID, Size_cm, Dose_Mrad, Dose_Rate_Mradhr, Radiation_Source, Atmosphere, Color, Wire_Attached, Irradiation_Date_MMDDYYYY,Current_Location):
         self.Row = Row
         self.Material = Material
         self.Doping_Rate = Doping_Rate
@@ -38,11 +36,8 @@ class Sample(db.Model):
         self.Atmosphere = Atmosphere
         self.Color = Color
         self.Wire_Attached = Wire_Attached
-        self.Location = Location
         self.Irradiation_Date_MMDDYYYY = Irradiation_Date_MMDDYYYY
-        self.Notes1 = Notes1
-        self.Notes2 = Notes2
-
+        self.Current_Location = Current_Location
 
 class Event(db.Model):
     """
@@ -85,7 +80,26 @@ class Event(db.Model):
         self.A_Spectral_bandwidth_nm = A_Spectral_bandwidth_nm
         self.A_Increment_nm = A_Increment_nm
         self.sample = sample
+
+class History(db.Model):
+    """
+        Model used for history
+        Referse to Sample
+        """
+    id = db.Column(db.Integer, primary_key=True)
+    Date = db.Column(db.String(30))
+    Location = db.Column(db.String(30))
+    Note = db.Column(db.String(500))
     
+    sample_ID = db.Column(db.Integer, db.ForeignKey('sample.id'))
+    sample = db.relationship('Sample', backref=db.backref('histories', lazy='dynamic'))
+    
+    def __init__(self, Date, Location, Note, sample):
+        self.Date = Date
+        self.Location = Location
+        self.Note = Note
+        self.sample = sample
+
 class Mesurement(db.Model):
     """
     Model used for a Mesurement

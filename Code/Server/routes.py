@@ -29,13 +29,11 @@ def samples():
         Atmosphere = request.form['Atmosphere']
         Color = request.form['Color']
         Wire_Attached = request.form['Wire_Attached']
-        Location = request.form['Location']
         Irradiation_Date_MMDDYYYY = request.form['Irradiation_Date_MMDDYYYY']
-        Notes1 = request.form['Notes1']
-        Notes2 = request.form['Notes2']
+        Current_Location = request.form['Current_Location']
         
         
-        s = Sample(Row,Material,Doping_Rate,Code_ID,Size_cm,Dose_Mrad,Dose_Rate_Mradhr,Radiation_Source,Atmosphere,Color,Wire_Attached,Location,Irradiation_Date_MMDDYYYY,Notes1,Notes2) #Creates sample object
+        s = Sample(Row,Material,Doping_Rate,Code_ID,Size_cm,Dose_Mrad,Dose_Rate_Mradhr,Radiation_Source,Atmosphere,Color,Wire_Attached,Irradiation_Date_MMDDYYYY,Current_Location) #Creates sample object
         
         db.session.add(s)   #addes sample to db
         db.session.commit()
@@ -85,7 +83,36 @@ def sample(id):
         return redirect(url_for('event',id=e.id))   #redirect to new events page
     elif request.method == 'GET':
         return render_template('events.html', sample=s)
+
+@app.route('/sample_history/<int:id>', methods=['GET','POST'])
+def sample_history(id):
+    """
+        Gets history of a sample
+        Post creates new history under this sample
+        """
+    s = Sample.query.filter_by(id=id).first()   #gets current sample from db
     
+    #breadcrumb stuff
+    session['sample'] = id
+    session.pop('history',None)
+    
+    if request.method == 'POST':
+        #gets values from form
+        Date = request.form['Date']
+        Location = request.form['Location']
+        Note = request.form['Note']
+        
+        h = History(Date,Location,Note,s) #create history object
+        
+        #add and commit to db
+        db.session.add(h)
+        db.session.commit()
+        
+        
+        return render_template('histories.html', sample=s)   #Return this template, no reason to redirect
+    elif request.method == 'GET':
+        return render_template('histories.html', sample=s)
+
 @app.route('/sample/<int:id>/delete')
 def deleteSample(id):
     s = Sample.query.filter_by(id=id).first()
@@ -95,9 +122,7 @@ def deleteSample(id):
             db.session.delete(messurement)
         db.session.delete(event)
     db.session.delete(s)
-    
     db.session.commit()
-    
     return redirect('/')
 
 @app.route('/event/<int:id>',methods=['GET','POST'])
