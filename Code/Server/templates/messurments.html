@@ -8,12 +8,13 @@
     <table class="table table-striped table-bordered table-hover" >
         <thead>
             <tr>
-                <td>Data</td><td>Notes</td><td>Delete</td>
+                <td>Created By</td><td>Data</td><td>Notes</td><td>Delete</td>
             </tr>
         </thead>
         <tbody data-link="row" class="rowlink">
             {% for mesurment in event.mesurements.all() %}
                 <tr>
+                    <td>{{mesurment.CreatedBy}}</td>
                     <td><a href="/mesurement/{{mesurment.id}}"><span class="glyphicon glyphicon-download"></span>Data</a></td>
                     <td>{{mesurment.Notes}}</td>
                     <td class="rowlink-skip"><a href="/mesurement/{{mesurment.id}}/delete">Delete</a></td>

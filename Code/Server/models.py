@@ -10,6 +10,8 @@ class Sample(db.Model):
     Model used for plastic sample
     """
     id = db.Column(db.Integer, primary_key=True)
+    
+    CreatedBy = db.Column(db.String(30))
     Row = db.Column(db.Integer)
     Material = db.Column(db.String(20))
     Doping_Rate = db.Column(db.String(20))
@@ -24,7 +26,8 @@ class Sample(db.Model):
     Irradiation_Date_MMDDYYYY = db.Column(db.String(30))
     Current_Location = db.Column(db.String(20))
     
-    def __init__(self, Row, Material, Doping_Rate, Code_ID, Size_cm, Dose_Mrad, Dose_Rate_Mradhr, Radiation_Source, Atmosphere, Color, Wire_Attached, Irradiation_Date_MMDDYYYY,Current_Location):
+    def __init__(self,CreatedBy, Row, Material, Doping_Rate, Code_ID, Size_cm, Dose_Mrad, Dose_Rate_Mradhr, Radiation_Source, Atmosphere, Color, Wire_Attached, Irradiation_Date_MMDDYYYY,Current_Location):
+        self.CreatedBy = CreatedBy
         self.Row = Row
         self.Material = Material
         self.Doping_Rate = Doping_Rate
@@ -45,6 +48,7 @@ class Event(db.Model):
     Referse to Sample
     """
     id = db.Column(db.Integer, primary_key=True)
+    CreatedBy = db.Column(db.String(30))
     time = db.Column(db.DateTime)
     History_time = db.Column(db.String(30))
     Measurement_type = db.Column(db.String(30))
@@ -64,7 +68,8 @@ class Event(db.Model):
     sample_ID = db.Column(db.Integer, db.ForeignKey('sample.id'))
     sample = db.relationship('Sample', backref=db.backref('events', lazy='dynamic'))
     
-    def __init__(self,time,History_time,Measurement_type,sample_number,sample_face,E_sample_angle,E_Excitation_wavelength_nm,E_Excitation_Slit_nm,E_Increment_nm,E_Emission_Slit_nm,A_Baseline_reference,A_Scan_range_nm,A_Spectral_bandwidth_nm,A_Increment_nm,sample):
+    def __init__(self,CreatedBy,time,History_time,Measurement_type,sample_number,sample_face,E_sample_angle,E_Excitation_wavelength_nm,E_Excitation_Slit_nm,E_Increment_nm,E_Emission_Slit_nm,A_Baseline_reference,A_Scan_range_nm,A_Spectral_bandwidth_nm,A_Increment_nm,sample):
+        self.CreatedBy = CreatedBy
         self.time = time
         self.History_time = History_time
         self.Measurement_type = Measurement_type
@@ -87,6 +92,7 @@ class History(db.Model):
         Referse to Sample
         """
     id = db.Column(db.Integer, primary_key=True)
+    CreatedBy = db.Column(db.String(30))
     Date = db.Column(db.String(30))
     Location = db.Column(db.String(30))
     Note = db.Column(db.String(500))
@@ -94,7 +100,8 @@ class History(db.Model):
     sample_ID = db.Column(db.Integer, db.ForeignKey('sample.id'))
     sample = db.relationship('Sample', backref=db.backref('histories', lazy='dynamic'))
     
-    def __init__(self, Date, Location, Note, sample):
+    def __init__(self,CreatedBy, Date, Location, Note, sample):
+        self.CreatedBy = CreatedBy
         self.Date = Date
         self.Location = Location
         self.Note = Note
@@ -107,13 +114,15 @@ class Mesurement(db.Model):
     Referse to Event
     """
     id = db.Column(db.Integer, primary_key=True)
+    CreatedBy = db.Column(db.String(30))
     data = db.Column(db.LargeBinary)
     Notes = db.Column(db.String(500))
     
     event_ID = db.Column(db.Integer, db.ForeignKey('event.id'))
     event = db.relationship('Event', backref=db.backref('mesurements',lazy='dynamic'))
     
-    def __init__(self, data, Notes, event):
+    def __init__(self,CreatedBy, data, Notes, event):
+        self.CreatedBy = CreatedBy
         self.data = data
         self.Notes = Notes
         self.event = event

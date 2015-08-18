@@ -3,8 +3,39 @@ Web Routes
 """
 from Server import app, db
 from Server.models import *
-from flask import render_template, request, redirect, url_for, Response, session
+from flask import render_template, request, redirect, url_for, Response, session, g, abort, flash
 import datetime
+
+@app.errorhandler(401)
+def handle_UnAuthorized(e):
+    flash("You are unauthorized to perform that action")
+    return redirect(url_for('samples'))
+
+@app.before_request
+def cheackAuth():
+    g.auth = 'username' in session
+
+#Login Route
+@app.route('/login',methods=['POST'])
+def login():
+    username = request.form['username']
+    password = request.form['password']
+    
+    if username in app.config['Users'].keys():
+        if password == app.config['Users'][username]:
+            flash('Login Successful')
+            session['username'] = username
+        else:
+            flash('Invalide password')
+    else:
+        flash('Invalide username')
+            
+    return redirect(url_for('samples'))
+    
+@app.route('/logout')
+def logout():
+    session.pop('username')
+    return redirect(url_for('samples'))
 
 @app.route('/')
 @app.route('/sample', methods=['GET','POST'])
@@ -17,7 +48,10 @@ def samples():
     session.pop('event',None)
     
     if request.method == 'POST':
+        if not g.auth:
+            abort(401)
         #Gets values from form
+        CreatedBy = session['username']
         Row = request.form['Row']
         Material = request.form['Material']
         Doping_Rate = request.form['Doping_Rate']
@@ -33,7 +67,7 @@ def samples():
         Current_Location = request.form['Current_Location']
         
         
-        s = Sample(Row,Material,Doping_Rate,Code_ID,Size_cm,Dose_Mrad,Dose_Rate_Mradhr,Radiation_Source,Atmosphere,Color,Wire_Attached,Irradiation_Date_MMDDYYYY,Current_Location) #Creates sample object
+        s = Sample(CreatedBy,Row,Material,Doping_Rate,Code_ID,Size_cm,Dose_Mrad,Dose_Rate_Mradhr,Radiation_Source,Atmosphere,Color,Wire_Attached,Irradiation_Date_MMDDYYYY,Current_Location) #Creates sample object
         
         db.session.add(s)   #addes sample to db
         db.session.commit()
@@ -57,7 +91,10 @@ def sample(id):
     session.pop('event',None)
     
     if request.method == 'POST':
+        if not g.auth:
+            abort(401)
         #gets values from form
+        CreatedBy = session['username']
         time = request.form['time']
         History_time = request.form['History_time']
         Measurement_type = request.form['Measurement_type']
@@ -73,7 +110,7 @@ def sample(id):
         A_Spectral_bandwidth_nm = request.form['A_Spectral_bandwidth_nm']
         A_Increment_nm = request.form['A_Increment_nm']
         
-        e = Event(datetime.datetime.now(),History_time , Measurement_type,sample_number,sample_face,E_sample_angle,E_Excitation_wavelength_nm,E_Excitation_Slit_nm,E_Increment_nm, E_Emission_Slit_nm,A_Baseline_reference,A_Scan_range_nm,A_Spectral_bandwidth_nm,A_Increment_nm, s) #create event object
+        e = Event(CreatedBy,datetime.datetime.now(),History_time , Measurement_type,sample_number,sample_face,E_sample_angle,E_Excitation_wavelength_nm,E_Excitation_Slit_nm,E_Increment_nm, E_Emission_Slit_nm,A_Baseline_reference,A_Scan_range_nm,A_Spectral_bandwidth_nm,A_Increment_nm, s) #create event object
         
         #add and commit to db
         db.session.add(e)
@@ -97,12 +134,15 @@ def sample_history(id):
     session.pop('history',None)
     
     if request.method == 'POST':
+        if not g.auth:
+            abort(401)
         #gets values from form
+        CreatedBy = session['username']
         Date = request.form['Date']
         Location = request.form['Location']
         Note = request.form['Note']
         
-        h = History(Date,Location,Note,s) #create history object
+        h = History(CreatedBy,Date,Location,Note,s) #create history object
         
         #add and commit to db
         db.session.add(h)
@@ -115,6 +155,8 @@ def sample_history(id):
 
 @app.route('/sample/<int:id>/delete')
 def deleteSample(id):
+    if not g.auth:
+            abort(401)
     s = Sample.query.filter_by(id=id).first()
     
     for event in s.events.all():
@@ -136,10 +178,13 @@ def event(id):
     session['event'] = id
     
     if request.method == 'POST':
+        if not g.auth:
+            abort(401)
         f = request.files['file']   #get files as filetype object from database
         data = f.read()
+        CreatedBy = session['username']
         Notes = request.form['Notes']
-        m = Mesurement(data,Notes,e)  #create messurement
+        m = Mesurement(CreatedBy,data,Notes,e)  #create messurement
         
         #add to db
         db.session.add(m)
@@ -151,6 +196,8 @@ def event(id):
 
 @app.route('/event/<int:id>/delete')
 def deleteEvent(id):
+    if not g.auth:
+            abort(401)
     e = Event.query.filter_by(id=id).first()
     for messurement in e.mesurements.all():
         db.session.delete(messurement)
@@ -166,6 +213,8 @@ def messurement(id):
 
 @app.route('/mesurement/<int:id>/delete')
 def deleteMessurement(id):
+    if not g.auth:
+            abort(401)
     m = Mesurement.query.filter_by(id=id).first()
     db.session.delete(m)
     db.session.commit()

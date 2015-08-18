@@ -8,7 +8,7 @@
     <table class="table table-striped table-bordered table-hover" >
         <thead>
             <tr>
-                <td>time</td><td>History time<td>Measurement Type</td><td>sample number</td><td>sample face</td><td>(E) sample angle</td><td>(E) Excitation wavelength (nm)</td><td>(E)Excitation Slit (nm)</td><td>(E) Increment (nm)</td><td>(E) Emission Slit (nm)</td><td>(A) Baseline Reference</td><td>(A) Scan Range (nm)</td><td>(A) Spectral Bandwidth (nm)</td><td>(A) Increment (nm)</td><td>Delete</td>
+                <td>time</td><td>Created By</td><td>History time<td>Measurement Type</td><td>sample number</td><td>sample face</td><td>(E) sample angle</td><td>(E) Excitation wavelength (nm)</td><td>(E)Excitation Slit (nm)</td><td>(E) Increment (nm)</td><td>(E) Emission Slit (nm)</td><td>(A) Baseline Reference</td><td>(A) Scan Range (nm)</td><td>(A) Spectral Bandwidth (nm)</td><td>(A) Increment (nm)</td><td>Delete</td>
             </tr>
         </thead>
         <tbody data-link="row" class="rowlink">
@@ -16,6 +16,7 @@
             {% for event in sample.events.all() %}
             <tr>
                 <td><a href="/event/{{event.id}}">{{event.time.month}}/{{event.time.day}}/{{event.time.year}} {{"%02d" % event.time.hour}}:{{"%02d" % event.time.minute}}</a></td>
+                <td>{{event.CreatedBy}}</td>
                 <td>{{event.History_time}}</td>
                 <td>{{event.Measurement_type}}</td>
                 <td>{{event.sample_number}}</td>
