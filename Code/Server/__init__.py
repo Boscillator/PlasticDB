@@ -14,10 +14,10 @@ db = SQLAlchemy(app)
 
 app.config['Users'] = {
     'Fred':'passwordpasswordpassword',
-    'Yao':'yy124680'
-    'Gengyuan':'Jam1234'
-    'Zishuo':'BillYang5678'
-    'Alberto':'Broccolli1234'
+    'Yao':'yy124680',
+    'Gengyuan':'Jam1234',
+    'Zishuo':'BillYang5678',
+    'Alberto':'Broccolli1234',
     'Sarah':'Echo1234'
 }
 
