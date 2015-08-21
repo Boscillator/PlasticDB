@@ -14,7 +14,11 @@ db = SQLAlchemy(app)
 
 app.config['Users'] = {
     'Fred':'passwordpasswordpassword',
-    'OtherUser':'potato'
+    'Yao':'yy124680'
+    'Gengyuan':'Jam1234'
+    'Zishuo':'BillYang5678'
+    'Alberto':'Broccolli1234'
+    'Sarah':'Echo1234'
 }
 
 #Import models and routes
